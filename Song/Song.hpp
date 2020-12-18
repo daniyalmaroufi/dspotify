@@ -3,8 +3,6 @@
 
 #include <string>
 
-using namespace std;
-
 class Song {
    public:
     Song(int id_, std::string title_, std::string artist_, int release_year_,
