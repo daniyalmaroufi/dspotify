@@ -77,6 +77,7 @@ void Utunes::handle_login_command(string rest_of_command) {
     stringstream commandSS(rest_of_command);
     string email, password, temp_value;
     commandSS >> temp_value;
+    commandSS >> temp_value;
     commandSS >> email;
     commandSS >> temp_value;
     commandSS >> password;
@@ -96,6 +97,7 @@ void Utunes::login_user(string email, string password) {
 void Utunes::handle_signup_command(string rest_of_command) {
     stringstream commandSS(rest_of_command);
     string username, email, password, temp_value;
+    commandSS >> temp_value;
     commandSS >> temp_value;
     commandSS >> email;
     commandSS >> temp_value;
