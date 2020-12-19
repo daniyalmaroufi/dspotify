@@ -28,6 +28,7 @@ class Utunes {
    private:
     vector<Song*> songs;
     vector<User*> users;
+    User* loggedin_user;
 };
 
 #endif

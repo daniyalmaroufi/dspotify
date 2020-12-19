@@ -1,6 +1,6 @@
 #include "./Utunes.hpp"
 
-Utunes::Utunes() {}
+Utunes::Utunes() { loggedin_user = NULL; }
 
 void Utunes::handle_input() {
     string command;
@@ -52,7 +52,9 @@ void Utunes::signup_user(string username, string email, string password) {
     for (auto user : users)
         if (user->is_username(username) || user->is_email(email))
             throw BadRequest();
-    users.push_back(new User(username, email, hash_text(password)));
+    User* new_user = new User(username, email, hash_text(password));
+    users.push_back(new_user);
+    loggedin_user = new_user;
 }
 
 string Utunes::hash_text(string password) {
