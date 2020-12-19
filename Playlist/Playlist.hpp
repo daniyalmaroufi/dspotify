@@ -18,6 +18,7 @@ class Playlist {
     bool is_owner(std::string username);
     bool is_public();
     void print_short_info();
+    void add_song(Song* the_song);
 
    private:
     int id;

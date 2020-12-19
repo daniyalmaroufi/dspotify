@@ -13,3 +13,5 @@ POST playlists ? name dplay privacy public
 POST playlists ? name dplay privacy private
 POST playlists ? name dplay privacy private
 GET playlists ? username dani
+POST playlists_songs ? playlist_id 2 song_id 1
+POST playlists_songs ? playlist_id 2 song_id 3

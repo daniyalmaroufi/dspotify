@@ -20,6 +20,8 @@ class Utunes {
     Utunes();
     void read_songs(string file_path);
     void handle_input();
+
+   private:
     void handle_post_commands(string rest_of_command);
     void handle_get_commands(string rest_of_command);
     void handle_delete_commands(string rest_of_command);
@@ -41,8 +43,9 @@ class Utunes {
     void handle_get_playlists_command(string rest_of_command);
     bool show_all_playlists_of_user(string ownername);
     bool show_public_playlists_of_user(string ownername);
+    void handle_add_song_to_playlist_command(string rest_of_command);
 
-   private:
+
     vector<Song*> songs;
     vector<User*> users;
     User* loggedin_user;
