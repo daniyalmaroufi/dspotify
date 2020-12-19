@@ -52,7 +52,12 @@ void Utunes::signup_user(string username, string email, string password) {
     for (auto user : users)
         if (user->is_username(username) || user->is_email(email))
             throw BadRequest();
-    users.push_back(new User(username, email, password));
+    users.push_back(new User(username, email, hash_text(password)));
+}
+
+string Utunes::hash_text(string password) {
+    std::hash<std::string> hash;
+    return to_string(hash(password));
 }
 
 void Utunes::handle_get_commands(string rest_of_command) {
