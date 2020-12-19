@@ -7,10 +7,11 @@
 #include <string>
 #include <vector>
 
-#include "../Song/Song.hpp"
-#include "../User/User.hpp"
 #include "../main/Exceptions.hpp"
 #include "../main/functions.hpp"
+#include "../Song/Song.hpp"
+#include "../User/User.hpp"
+#include "../Playlist/Playlist.hpp"
 
 using namespace std;
 
