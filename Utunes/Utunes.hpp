@@ -7,6 +7,7 @@
 #include <sstream>
 #include <fstream>
 
+#include "./Exceptions.hpp"
 #include "../Song/Song.hpp"
 
 using namespace std;
