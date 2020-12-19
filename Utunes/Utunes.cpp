@@ -274,9 +274,26 @@ void Utunes::handle_delete_commands(string rest_of_command) {
     getline(commandSS, rest_of_command);
     if (command == "likes") {
         handle_delete_likes_command(rest_of_command);
+    } else if (command == "playlists_songs") {
+        handle_remove_song_from_list_command(rest_of_command);
     } else {
         throw BadRequest();
     }
+}
+
+void Utunes::handle_remove_song_from_list_command(string rest_of_command) {
+    stringstream commandSS(rest_of_command);
+    int playlist_id, song_id;
+    string temp_value;
+    commandSS >> temp_value;
+    commandSS >> temp_value;
+    commandSS >> playlist_id;
+    commandSS >> temp_value;
+    commandSS >> song_id;
+    if (!playlists[playlist_id - 1]->is_owner(loggedin_user->get_username()))
+        throw PermissionDenied();
+    playlists[playlist_id - 1]->remove_song(song_id);
+    OK();
 }
 
 void Utunes::handle_delete_likes_command(string rest_of_command) {

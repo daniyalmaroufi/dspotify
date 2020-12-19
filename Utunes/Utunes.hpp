@@ -46,6 +46,7 @@ class Utunes {
     void handle_add_song_to_playlist_command(string rest_of_command);
     void add_song_to_playlist(int playlist_id, int song_id);
     void handle_get_playlist_songs_command(string rest_of_command);
+    void handle_remove_song_from_list_command(string rest_of_command);
 
     vector<Song*> songs;
     vector<User*> users;

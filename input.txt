@@ -17,3 +17,5 @@ POST playlists_songs ? playlist_id 2 song_id 1
 POST playlists_songs ? playlist_id 2 song_id 3
 GET playlists_songs ? playlist_id 2
 GET playlists_songs ? playlist_id 3
+DELETE playlists_songs ? playlist_id 2 song_id 3
+DELETE playlists_songs ? playlist_id 2 song_id 3

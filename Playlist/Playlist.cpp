@@ -22,3 +22,12 @@ void Playlist::show_songs() {
     if (songs.size() == 0) throw Empty();
     for (auto song : songs) song->print_short_info();
 }
+
+void Playlist::remove_song(int song_id) {
+    for (int i = 0; i < songs.size(); i++)
+        if (songs[i]->is_id(song_id)) {
+            songs.erase(songs.begin() + i);
+            return;
+        }
+    throw BadRequest();
+}

@@ -20,6 +20,7 @@ class Playlist {
     void print_short_info();
     void add_song(Song* the_song);
     void show_songs();
+    void remove_song(int song_id);
 
    private:
     int id;
