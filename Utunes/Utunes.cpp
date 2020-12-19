@@ -4,14 +4,18 @@ Utunes::Utunes() {}
 
 void Utunes::handle_input() {
     string command;
-    while (cin >> command) {
+    while (getline(cin, command)) {
         try {
-            if (command == "POST") {
-                handle_post_commands();
-            } else if (command == "GET") {
-                handle_get_commands();
-            } else if (command == "DELETE") {
-                handle_delete_commands();
+            stringstream commandSS(command);
+            string command_type, rest_of_command;
+            commandSS >> command_type;
+            getline(commandSS, rest_of_command);
+            if (command_type == "POST") {
+                handle_post_commands(rest_of_command);
+            } else if (command_type == "GET") {
+                handle_get_commands(rest_of_command);
+            } else if (command_type == "DELETE") {
+                handle_delete_commands(rest_of_command);
             } else {
                 throw BadRequest();
             }
@@ -20,13 +24,21 @@ void Utunes::handle_input() {
         }
     }
 }
-void Utunes::handle_post_commands() {
+void Utunes::handle_post_commands(string rest_of_command) {
+    stringstream commandSS(rest_of_command);
+    string command;
+    commandSS >> command;
+    getline(commandSS, rest_of_command);
+    if (command == "signup") {
+        cout << "signed up" << endl;
+    } else {
+        throw BadRequest();
+    }
+}
+void Utunes::handle_get_commands(string rest_of_command) {
     // do something
 }
-void Utunes::handle_get_commands() {
-    // do something
-}
-void Utunes::handle_delete_commands() {
+void Utunes::handle_delete_commands(string rest_of_command) {
     // do something
 }
 

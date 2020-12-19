@@ -16,9 +16,9 @@ class Utunes {
    public:
     Utunes();
     void handle_input();
-    void handle_post_commands();
-    void handle_get_commands();
-    void handle_delete_commands();
+    void handle_post_commands(string rest_of_command);
+    void handle_get_commands(string rest_of_command);
+    void handle_delete_commands(string rest_of_command);
     void read_songs(string file_path);
 
    private:
