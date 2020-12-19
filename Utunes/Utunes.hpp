@@ -7,11 +7,11 @@
 #include <string>
 #include <vector>
 
-#include "../main/Exceptions.hpp"
-#include "../main/functions.hpp"
+#include "../Playlist/Playlist.hpp"
 #include "../Song/Song.hpp"
 #include "../User/User.hpp"
-#include "../Playlist/Playlist.hpp"
+#include "../main/Exceptions.hpp"
+#include "../main/functions.hpp"
 
 using namespace std;
 
@@ -36,11 +36,14 @@ class Utunes {
     void handle_like_a_song_command(string rest_of_command);
     void handle_get_likes_command();
     void handle_delete_likes_command(string rest_of_command);
+    void handle_create_playlist_command(string rest_of_command);
+    void create_playlist(string name, string privacy);
 
    private:
     vector<Song*> songs;
     vector<User*> users;
     User* loggedin_user;
+    vector<Playlist*> playlists;
 };
 
 #endif

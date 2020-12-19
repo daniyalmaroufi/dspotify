@@ -35,3 +35,5 @@ void User::remove_liked_song(int song_id) {
         }
     throw BadRequest();
 }
+
+std::string User::get_username() { return username; }

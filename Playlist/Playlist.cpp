@@ -1,7 +1,8 @@
 #include "./Playlist.hpp"
 
-Playlist::Playlist(int id_, std::string name_, bool is_public_) {
+Playlist::Playlist(int id_, std::string name_, std::string ownername_, std::string privacy_) {
     id = id_;
     name = name_;
-    is_public = is_public_;
+    ownername = ownername_;
+    privacy = privacy_;
 }

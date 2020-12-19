@@ -9,3 +9,6 @@ GET likes
 DELETE likes ? id 12
 DELETE likes ? id 14
 GET likes
+POST playlists ? name dplay privacy public
+POST playlists ? name dplay privacy public
+POST playlists ? name dplay privacy public

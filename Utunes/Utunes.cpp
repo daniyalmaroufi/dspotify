@@ -38,9 +38,28 @@ void Utunes::handle_post_commands(string rest_of_command) {
         handle_logout_command();
     } else if (command == "likes") {
         handle_like_a_song_command(rest_of_command);
+    } else if (command == "playlists") {
+        handle_create_playlist_command(rest_of_command);
     } else {
         throw BadRequest();
     }
+}
+
+void Utunes::handle_create_playlist_command(string rest_of_command) {
+    stringstream commandSS(rest_of_command);
+    string name, privacy, temp_value;
+    commandSS >> temp_value;
+    commandSS >> temp_value;
+    commandSS >> name;
+    commandSS >> temp_value;
+    commandSS >> privacy;
+    create_playlist(name, privacy);
+}
+
+void Utunes::create_playlist(string name, string privacy) {
+    playlists.push_back(new Playlist(playlists.size() + 1, name,
+                                     loggedin_user->get_username(), privacy));
+    cout << playlists.size() << endl;
 }
 
 void Utunes::handle_like_a_song_command(string rest_of_command) {

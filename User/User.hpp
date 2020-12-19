@@ -18,6 +18,7 @@ class User {
     void like_song(Song* song);
     void show_likes();
     void remove_liked_song(int song_id);
+    std::string get_username();
 
    private:
     std::string username;

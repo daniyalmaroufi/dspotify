@@ -10,13 +10,14 @@
 
 class Playlist {
    public:
-    Playlist(int id_, std::string name_, bool is_public_);
+    Playlist(int id_, std::string name_, std::string ownername_, std::string privacy_);
     Playlist(){};
 
    private:
     int id;
     std::string name;
-    bool is_public;
+    std::string ownername;
+    std::string privacy;
     std::vector<Song*> songs;
 };
 
