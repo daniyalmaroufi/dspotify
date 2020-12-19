@@ -19,6 +19,7 @@ class User {
     void show_likes();
     void remove_liked_song(int song_id);
     std::string get_username();
+    bool compare_by_name_with(User* second);
 
    private:
     std::string username;

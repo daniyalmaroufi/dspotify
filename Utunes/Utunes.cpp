@@ -42,12 +42,37 @@ void Utunes::handle_post_commands(string rest_of_command) {
         handle_create_playlist_command(rest_of_command);
     } else if (command == "playlists_songs") {
         handle_add_song_to_playlist_command(rest_of_command);
+    } else if (command == "comments") {
+        handle_add_comment_command(rest_of_command);
     } else {
         throw BadRequest();
     }
 }
 
+void Utunes::handle_add_comment_command(string rest_of_command) {
+    needs_login();
+    stringstream commandSS(rest_of_command);
+    int song_id, time;
+    string comment, temp_value;
+    commandSS >> temp_value;
+    commandSS >> temp_value;
+    commandSS >> song_id;
+    commandSS >> temp_value;
+    commandSS >> time;
+    commandSS >> temp_value;
+    commandSS >> comment;
+
+    for (auto song : songs)
+        if (song->is_id(song_id)) {
+            song->add_comment(time,loggedin_user->get_username() , comment);
+            OK();
+            return;
+        }
+    throw NotFound();
+}
+
 void Utunes::handle_add_song_to_playlist_command(string rest_of_command) {
+    needs_login();
     stringstream commandSS(rest_of_command);
     int playlist_id, song_id;
     string temp_value;
@@ -73,6 +98,7 @@ void Utunes::add_song_to_playlist(int playlist_id, int song_id) {
 }
 
 void Utunes::handle_create_playlist_command(string rest_of_command) {
+    needs_login();
     stringstream commandSS(rest_of_command);
     string name, privacy, temp_value;
     commandSS >> temp_value;
@@ -182,9 +208,31 @@ void Utunes::handle_get_commands(string rest_of_command) {
         handle_get_playlists_command(rest_of_command);
     } else if (command == "playlists_songs") {
         handle_get_playlist_songs_command(rest_of_command);
+    } else if (command == "users") {
+        handle_get_users_command(rest_of_command);
     } else {
         throw BadRequest();
     }
+}
+
+bool compare_users_by_name(User* first, User* second) {
+    return first->compare_by_name_with(second);
+}
+
+std::vector<User*> sort_users_by_name(std::vector<User*> users) {
+    sort(users.begin(), users.end(), compare_users_by_name);
+    return users;
+}
+
+void Utunes::handle_get_users_command(string rest_of_command) {
+    vector<User*> users_to_show;
+    for (auto user : users)
+        if (!user->is_username(loggedin_user->get_username())) {
+            users_to_show.push_back(user);
+        }
+    if (users_to_show.size() == 0) throw Empty();
+    for (auto user : sort_users_by_name(users_to_show))
+        cout << user->get_username() << endl;
 }
 
 void Utunes::handle_get_playlist_songs_command(string rest_of_command) {

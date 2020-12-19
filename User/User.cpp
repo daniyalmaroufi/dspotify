@@ -37,3 +37,7 @@ void User::remove_liked_song(int song_id) {
 }
 
 std::string User::get_username() { return username; }
+
+bool User::compare_by_name_with(User* second) {
+    return username < second->username;
+}

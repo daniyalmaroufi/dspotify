@@ -3,6 +3,13 @@
 
 #include <iostream>
 #include <string>
+#include <vector>
+
+struct comment{
+    int time;
+    std::string username;
+    std::string text;
+};
 
 class Song {
    public:
@@ -15,6 +22,7 @@ class Song {
     bool is_the_same(Song* second);
     void print_full_info();
     void like();
+    void add_comment(int time, std::string username, std::string text);
 
    private:
     int id;
@@ -23,8 +31,8 @@ class Song {
     int release_year;
     std::string link;
     int num_of_likes;
-    int num_of_comments;
     int num_of_playlists;
+    std::vector<comment> comments;
 };
 
 #endif
