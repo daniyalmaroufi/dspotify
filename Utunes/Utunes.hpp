@@ -1,28 +1,30 @@
 #ifndef __UTUNES__
 #define __UTUNES__
 
+#include <fstream>
 #include <iostream>
+#include <sstream>
 #include <string>
 #include <vector>
-#include <sstream>
-#include <fstream>
 
-#include "./Exceptions.hpp"
 #include "../Song/Song.hpp"
+#include "../User/User.hpp"
+#include "./Exceptions.hpp"
 
 using namespace std;
 
 class Utunes {
    public:
     Utunes();
+    void read_songs(string file_path);
     void handle_input();
     void handle_post_commands(string rest_of_command);
     void handle_get_commands(string rest_of_command);
     void handle_delete_commands(string rest_of_command);
-    void read_songs(string file_path);
+    void handle_signup_command(string rest_of_command);
 
    private:
-   vector<Song*> songs;
+    vector<Song*> songs;
 };
 
 #endif

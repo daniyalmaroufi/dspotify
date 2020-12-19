@@ -1,0 +1,1 @@
+POST signup email dani@gm.com username dani password 1234

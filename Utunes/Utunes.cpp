@@ -30,14 +30,30 @@ void Utunes::handle_post_commands(string rest_of_command) {
     commandSS >> command;
     getline(commandSS, rest_of_command);
     if (command == "signup") {
-        cout << "signed up" << endl;
+        handle_signup_command(rest_of_command);
     } else {
         throw BadRequest();
     }
 }
+
+void Utunes::handle_signup_command(string rest_of_command) {
+    stringstream commandSS(rest_of_command);
+    string username, email, password, temp_value;
+    commandSS >> temp_value;
+    commandSS >> email;
+    commandSS >> temp_value;
+    commandSS >> username;
+    commandSS >> temp_value;
+    commandSS >> password;
+    cout<<username<<endl;
+    cout<<email<<endl;
+    cout<<password<<endl;
+}
+
 void Utunes::handle_get_commands(string rest_of_command) {
     // do something
 }
+
 void Utunes::handle_delete_commands(string rest_of_command) {
     // do something
 }
