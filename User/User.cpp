@@ -31,7 +31,6 @@ void User::remove_liked_song(int song_id) {
     for (int i = 0; i < liked_songs.size(); i++)
         if (liked_songs[i]->is_id(song_id)) {
             liked_songs.erase(liked_songs.begin() + i);
-            OK();
             return;
         }
     throw BadRequest();

@@ -185,8 +185,8 @@ void Utunes::handle_delete_likes_command(string rest_of_command) {
     if (temp_value != "?") throw BadRequest();
     commandSS >> temp_value;
     commandSS >> song_id;
-
     loggedin_user->remove_liked_song(stoi(song_id));
+    OK();
 }
 
 void Utunes::read_songs(string file_path) {
