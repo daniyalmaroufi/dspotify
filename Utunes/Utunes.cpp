@@ -105,16 +105,36 @@ void Utunes::handle_get_commands(string rest_of_command) {
     commandSS >> command;
     getline(commandSS, rest_of_command);
     if (command == "songs") {
-        handle_get_songs_command();
+        handle_get_songs_command(rest_of_command);
     } else {
         throw BadRequest();
     }
 }
 
-void Utunes::handle_get_songs_command() {
-    if (songs.size() == 0) throw Empty();
-    vector<Song*> sorted_songs = sort_songs();
-    for (auto song : sorted_songs) song->print_info();
+void Utunes::handle_get_songs_command(string rest_of_command) {
+    stringstream commandSS(rest_of_command);
+    string command;
+    commandSS >> command;
+    if (command == "?") {
+        getline(commandSS, rest_of_command);
+        handle_get_song_command(rest_of_command);
+    } else if (command == "") {
+        if (songs.size() == 0) throw Empty();
+        vector<Song*> sorted_songs = sort_songs();
+        for (auto song : sorted_songs) song->print_short_info();
+    }
+}
+
+void Utunes::handle_get_song_command(string rest_of_command) {
+    stringstream commandSS(rest_of_command);
+    string song_id, temp_value;
+    commandSS >> temp_value;
+    commandSS >> song_id;
+
+    for (auto song : songs)
+        if (song->is_id(stoi(song_id))) {
+            song->print_full_info();
+        }
 }
 
 bool compare_songs_by_id(Song* first, Song* second) {

@@ -30,7 +30,8 @@ class Utunes {
     void handle_logout_command();
     void needs_login();
     void logout_user();
-    void handle_get_songs_command();
+    void handle_get_songs_command(string rest_of_command);
+    void handle_get_song_command(string rest_of_command);
     vector<Song*> sort_songs();
 
    private:

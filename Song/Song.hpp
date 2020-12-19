@@ -10,7 +10,9 @@ class Song {
          std::string link_);
     Song(){};
     bool compare_by_id_with(Song* second);
-    void print_info();
+    void print_short_info();
+    bool is_id(int id_);
+    void print_full_info();
 
    private:
     int id;
@@ -18,6 +20,9 @@ class Song {
     std::string artist;
     int release_year;
     std::string link;
+    int num_of_likes;
+    int num_of_comments;
+    int num_of_playlists;
 };
 
 #endif
