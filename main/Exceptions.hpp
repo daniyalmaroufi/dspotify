@@ -24,4 +24,11 @@ public:
     }
 };
 
+class NotFound : public std::exception {
+public:
+    const char* what() const noexcept {
+        return "Not Found\n";
+    }
+};
+
 #endif

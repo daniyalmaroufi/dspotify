@@ -2,6 +2,10 @@
 #define __USER__
 
 #include <string>
+#include <vector>
+
+#include "../Song/Song.hpp"
+#include "../main/Exceptions.hpp"
 
 class User {
    public:
@@ -10,11 +14,13 @@ class User {
     bool is_username(std::string username_);
     bool is_email(std::string email_);
     bool is_password(std::string password_);
+    void like_song(Song* song);
 
    private:
     std::string username;
     std::string email;
     std::string password;
+    std::vector<Song*> liked_songs;
 };
 
 #endif

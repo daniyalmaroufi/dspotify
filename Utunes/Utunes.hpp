@@ -10,7 +10,7 @@
 
 #include "../Song/Song.hpp"
 #include "../User/User.hpp"
-#include "./Exceptions.hpp"
+#include "../main/Exceptions.hpp"
 
 using namespace std;
 
@@ -33,6 +33,7 @@ class Utunes {
     void handle_get_songs_command(string rest_of_command);
     void handle_get_song_command(string rest_of_command);
     vector<Song*> sort_songs();
+    void handle_like_a_song_command(string rest_of_command);
 
    private:
     vector<Song*> songs;

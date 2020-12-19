@@ -16,7 +16,7 @@ utunes.out: obj/main.o obj/utunes.o obj/song.o obj/user.o
 obj/main.o: main/main.cpp
 	$(CPP) -c main/main.cpp -o obj/main.o
 
-obj/utunes.o: $(UTUNES_DIR)Utunes.cpp $(UTUNES_DIR)Utunes.hpp $(UTUNES_DIR)Exceptions.hpp
+obj/utunes.o: $(UTUNES_DIR)Utunes.cpp $(UTUNES_DIR)Utunes.hpp main/Exceptions.hpp
 	$(CPP) -c $(UTUNES_DIR)Utunes.cpp -o obj/utunes.o
 
 obj/song.o: $(SONG_DIR)Song.cpp $(SONG_DIR)Song.hpp

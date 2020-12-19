@@ -12,7 +12,9 @@ class Song {
     bool compare_by_id_with(Song* second);
     void print_short_info();
     bool is_id(int id_);
+    bool is_the_same(Song* second);
     void print_full_info();
+    void like();
 
    private:
     int id;

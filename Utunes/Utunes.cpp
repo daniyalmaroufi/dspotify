@@ -35,10 +35,31 @@ void Utunes::handle_post_commands(string rest_of_command) {
         handle_login_command(rest_of_command);
     } else if (command == "logout") {
         handle_logout_command();
+    } else if (command == "likes") {
+        handle_like_a_song_command(rest_of_command);
     } else {
         throw BadRequest();
     }
 }
+
+void Utunes::handle_like_a_song_command(string rest_of_command) {
+    needs_login();
+    stringstream commandSS(rest_of_command);
+    string song_id, temp_value;
+    commandSS >> temp_value;
+    if (temp_value != "?") throw BadRequest();
+    commandSS >> temp_value;
+    commandSS >> song_id;
+
+    for (auto song : songs)
+        if (song->is_id(stoi(song_id))) {
+            loggedin_user->like_song(song);
+            cout << "OK" << endl;
+            return;
+        }
+    throw NotFound();
+}
+
 void Utunes::handle_logout_command() {
     needs_login();
     logout_user();
@@ -134,7 +155,9 @@ void Utunes::handle_get_song_command(string rest_of_command) {
     for (auto song : songs)
         if (song->is_id(stoi(song_id))) {
             song->print_full_info();
+            return;
         }
+    throw NotFound();
 }
 
 bool compare_songs_by_id(Song* first, Song* second) {
