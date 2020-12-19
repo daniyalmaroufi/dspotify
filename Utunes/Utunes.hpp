@@ -1,6 +1,7 @@
 #ifndef __UTUNES__
 #define __UTUNES__
 
+#include <algorithm>
 #include <fstream>
 #include <iostream>
 #include <sstream>
@@ -27,7 +28,10 @@ class Utunes {
     void handle_login_command(string rest_of_command);
     void login_user(string email, string password);
     void handle_logout_command();
+    void needs_login();
     void logout_user();
+    void handle_get_songs_command();
+    vector<Song*> sort_songs();
 
    private:
     vector<Song*> songs;

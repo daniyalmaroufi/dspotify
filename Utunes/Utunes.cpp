@@ -40,14 +40,16 @@ void Utunes::handle_post_commands(string rest_of_command) {
     }
 }
 void Utunes::handle_logout_command() {
+    needs_login();
     logout_user();
     cout << "OK" << endl;
 }
 
-void Utunes::logout_user() {
+void Utunes::needs_login() {
     if (loggedin_user == NULL) throw PermissionDenied();
-    loggedin_user = NULL;
 }
+
+void Utunes::logout_user() { loggedin_user = NULL; }
 
 void Utunes::handle_login_command(string rest_of_command) {
     stringstream commandSS(rest_of_command);
@@ -97,15 +99,32 @@ string Utunes::hash_text(string password) {
 }
 
 void Utunes::handle_get_commands(string rest_of_command) {
+    needs_login();
     stringstream commandSS(rest_of_command);
     string command;
     commandSS >> command;
     getline(commandSS, rest_of_command);
     if (command == "songs") {
-        // handle_get_songs_command();
+        handle_get_songs_command();
     } else {
         throw BadRequest();
     }
+}
+
+void Utunes::handle_get_songs_command() {
+    if (songs.size() == 0) throw Empty();
+    vector<Song*> sorted_songs = sort_songs();
+    for (auto song : sorted_songs) song->print_info();
+}
+
+bool compare_songs_by_id(Song* first, Song* second) {
+    return first->compare_by_id_with(second);
+}
+
+vector<Song*> Utunes::sort_songs() {
+    vector<Song*> sorted_songs = songs;
+    sort(songs.begin(), songs.end(), compare_songs_by_id);
+    return sorted_songs;
 }
 
 void Utunes::handle_delete_commands(string rest_of_command) {

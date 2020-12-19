@@ -17,4 +17,11 @@ public:
     }
 };
 
+class Empty : public std::exception {
+public:
+    const char* what() const noexcept {
+        return "Empty\n";
+    }
+};
+
 #endif
