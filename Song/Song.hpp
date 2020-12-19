@@ -22,6 +22,7 @@ class Song {
     bool is_the_same(Song* second);
     void print_full_info();
     void like();
+    void added_to_playlist();
     void add_comment(int time, std::string username, std::string text);
 
    private:

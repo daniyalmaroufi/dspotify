@@ -16,7 +16,10 @@ void Playlist::print_short_info() {
 
 bool Playlist::is_public() { return privacy == PUBLIC_PLAYLIST; }
 
-void Playlist::add_song(Song* the_song) { songs.push_back(the_song); }
+void Playlist::add_song(Song* the_song) {
+    songs.push_back(the_song);
+    the_song->added_to_playlist();
+}
 
 void Playlist::show_songs() {
     if (songs.size() == 0) throw Empty();

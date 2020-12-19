@@ -64,7 +64,7 @@ void Utunes::handle_add_comment_command(string rest_of_command) {
 
     for (auto song : songs)
         if (song->is_id(song_id)) {
-            song->add_comment(time,loggedin_user->get_username() , comment);
+            song->add_comment(time, loggedin_user->get_username(), comment);
             OK();
             return;
         }
