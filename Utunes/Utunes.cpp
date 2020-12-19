@@ -135,9 +135,7 @@ void Utunes::handle_get_commands(string rest_of_command) {
     }
 }
 
-void Utunes::handle_get_likes_command() {
-    loggedin_user->show_likes();
-}
+void Utunes::handle_get_likes_command() { loggedin_user->show_likes(); }
 
 void Utunes::handle_get_songs_command(string rest_of_command) {
     stringstream commandSS(rest_of_command);
@@ -168,7 +166,27 @@ void Utunes::handle_get_song_command(string rest_of_command) {
 }
 
 void Utunes::handle_delete_commands(string rest_of_command) {
-    // do something
+    needs_login();
+    stringstream commandSS(rest_of_command);
+    string command;
+    commandSS >> command;
+    getline(commandSS, rest_of_command);
+    if (command == "likes") {
+        handle_delete_likes_command(rest_of_command);
+    } else {
+        throw BadRequest();
+    }
+}
+
+void Utunes::handle_delete_likes_command(string rest_of_command) {
+    stringstream commandSS(rest_of_command);
+    string song_id, temp_value;
+    commandSS >> temp_value;
+    if (temp_value != "?") throw BadRequest();
+    commandSS >> temp_value;
+    commandSS >> song_id;
+
+    loggedin_user->remove_liked_song(stoi(song_id));
 }
 
 void Utunes::read_songs(string file_path) {

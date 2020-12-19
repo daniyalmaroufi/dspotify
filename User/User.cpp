@@ -26,3 +26,13 @@ void User::show_likes() {
     std::vector<Song*> sorted_songs = sort_songs(liked_songs);
     for (auto song : sorted_songs) song->print_short_info();
 }
+
+void User::remove_liked_song(int song_id) {
+    for (int i = 0; i < liked_songs.size(); i++)
+        if (liked_songs[i]->is_id(song_id)) {
+            liked_songs.erase(liked_songs.begin() + i);
+            OK();
+            return;
+        }
+    throw BadRequest();
+}

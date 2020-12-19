@@ -6,3 +6,6 @@ POST likes ? id 14
 POST likes ? id 15
 GET songs ? id 14
 GET likes
+DELETE likes ? id 12
+DELETE likes ? id 14
+GET likes

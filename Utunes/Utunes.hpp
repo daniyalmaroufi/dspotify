@@ -12,7 +12,6 @@
 #include "../main/Exceptions.hpp"
 #include "../main/functions.hpp"
 
-
 using namespace std;
 
 class Utunes {
@@ -35,6 +34,7 @@ class Utunes {
     void handle_get_song_command(string rest_of_command);
     void handle_like_a_song_command(string rest_of_command);
     void handle_get_likes_command();
+    void handle_delete_likes_command(string rest_of_command);
 
    private:
     vector<Song*> songs;

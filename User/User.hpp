@@ -17,6 +17,7 @@ class User {
     bool is_password(std::string password_);
     void like_song(Song* song);
     void show_likes();
+    void remove_liked_song(int song_id);
 
    private:
     std::string username;
