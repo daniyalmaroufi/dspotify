@@ -3,5 +3,6 @@ POST signup email dani@gm.com username dani password 1234
 POST signup email dani@gm.com username dani password 1234
 GET songs ? id 1
 POST likes ? id 14
-POST likes ? id 14
+POST likes ? id 15
 GET songs ? id 14
+GET likes

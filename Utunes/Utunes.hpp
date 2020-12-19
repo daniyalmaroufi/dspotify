@@ -1,7 +1,6 @@
 #ifndef __UTUNES__
 #define __UTUNES__
 
-#include <algorithm>
 #include <fstream>
 #include <iostream>
 #include <sstream>
@@ -11,6 +10,8 @@
 #include "../Song/Song.hpp"
 #include "../User/User.hpp"
 #include "../main/Exceptions.hpp"
+#include "../main/functions.hpp"
+
 
 using namespace std;
 
@@ -32,8 +33,8 @@ class Utunes {
     void logout_user();
     void handle_get_songs_command(string rest_of_command);
     void handle_get_song_command(string rest_of_command);
-    vector<Song*> sort_songs();
     void handle_like_a_song_command(string rest_of_command);
+    void handle_get_likes_command();
 
    private:
     vector<Song*> songs;

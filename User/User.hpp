@@ -6,6 +6,7 @@
 
 #include "../Song/Song.hpp"
 #include "../main/Exceptions.hpp"
+#include "../main/functions.hpp"
 
 class User {
    public:
@@ -15,6 +16,7 @@ class User {
     bool is_email(std::string email_);
     bool is_password(std::string password_);
     void like_song(Song* song);
+    void show_likes();
 
    private:
     std::string username;
