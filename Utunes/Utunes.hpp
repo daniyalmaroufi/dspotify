@@ -26,6 +26,8 @@ class Utunes {
     string hash_text(string password);
     void handle_login_command(string rest_of_command);
     void login_user(string email, string password);
+    void handle_logout_command();
+    void logout_user();
 
    private:
     vector<Song*> songs;

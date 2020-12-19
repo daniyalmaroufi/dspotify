@@ -10,4 +10,11 @@ public:
     }
 };
 
+class PermissionDenied : public std::exception {
+public:
+    const char* what() const noexcept {
+        return "Permission Denied\n";
+    }
+};
+
 #endif

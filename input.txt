@@ -1,2 +1,3 @@
+POST logout
 POST signup email dani@gm.com username dani password 1234
 POST signup email dani@gm.com username dani password 1234

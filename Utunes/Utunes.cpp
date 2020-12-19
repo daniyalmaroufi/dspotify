@@ -33,9 +33,20 @@ void Utunes::handle_post_commands(string rest_of_command) {
         handle_signup_command(rest_of_command);
     } else if (command == "login") {
         handle_login_command(rest_of_command);
+    } else if (command == "logout") {
+        handle_logout_command();
     } else {
         throw BadRequest();
     }
+}
+void Utunes::handle_logout_command() {
+    logout_user();
+    cout << "OK" << endl;
+}
+
+void Utunes::logout_user() {
+    if (loggedin_user == NULL) throw PermissionDenied();
+    loggedin_user = NULL;
 }
 
 void Utunes::handle_login_command(string rest_of_command) {
@@ -46,6 +57,7 @@ void Utunes::handle_login_command(string rest_of_command) {
     commandSS >> temp_value;
     commandSS >> password;
     login_user(email, password);
+    cout << "OK" << endl;
 }
 
 void Utunes::login_user(string email, string password) {
@@ -67,6 +79,7 @@ void Utunes::handle_signup_command(string rest_of_command) {
     commandSS >> temp_value;
     commandSS >> password;
     signup_user(username, email, password);
+    cout << "OK" << endl;
 }
 
 void Utunes::signup_user(string username, string email, string password) {
@@ -76,7 +89,6 @@ void Utunes::signup_user(string username, string email, string password) {
     User* new_user = new User(username, email, hash_text(password));
     users.push_back(new_user);
     loggedin_user = new_user;
-    cout << "OK" << endl;
 }
 
 string Utunes::hash_text(string password) {
@@ -85,7 +97,15 @@ string Utunes::hash_text(string password) {
 }
 
 void Utunes::handle_get_commands(string rest_of_command) {
-    // do something
+    stringstream commandSS(rest_of_command);
+    string command;
+    commandSS >> command;
+    getline(commandSS, rest_of_command);
+    if (command == "songs") {
+        // handle_get_songs_command();
+    } else {
+        throw BadRequest();
+    }
 }
 
 void Utunes::handle_delete_commands(string rest_of_command) {
@@ -105,4 +125,5 @@ void Utunes::read_songs(string file_path) {
         songs.push_back(new Song(stoi(record[0]), record[1], record[2],
                                  stoi(record[3]), record[4]));
     }
+    CSVfile.close();
 }
