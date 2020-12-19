@@ -19,6 +19,7 @@ class Playlist {
     bool is_public();
     void print_short_info();
     void add_song(Song* the_song);
+    void show_songs();
 
    private:
     int id;

@@ -61,7 +61,7 @@ void Utunes::handle_add_song_to_playlist_command(string rest_of_command) {
 }
 
 void Utunes::add_song_to_playlist(int playlist_id, int song_id) {
-    if (!playlists[playlist_id]->is_owner(loggedin_user->get_username()))
+    if (!playlists[playlist_id - 1]->is_owner(loggedin_user->get_username()))
         throw PermissionDenied();
     Song* the_song = NULL;
     for (auto song : songs)
@@ -180,9 +180,26 @@ void Utunes::handle_get_commands(string rest_of_command) {
         handle_get_likes_command();
     } else if (command == "playlists") {
         handle_get_playlists_command(rest_of_command);
+    } else if (command == "playlists_songs") {
+        handle_get_playlist_songs_command(rest_of_command);
     } else {
         throw BadRequest();
     }
+}
+
+void Utunes::handle_get_playlist_songs_command(string rest_of_command) {
+    stringstream commandSS(rest_of_command);
+    int playlist_id;
+    string temp_value;
+    commandSS >> temp_value;
+    commandSS >> temp_value;
+    commandSS >> playlist_id;
+
+    if (!playlists[playlist_id - 1]->is_owner(loggedin_user->get_username()) &&
+        !playlists[playlist_id - 1]->is_public())
+        throw PermissionDenied();
+
+    playlists[playlist_id - 1]->show_songs();
 }
 
 void Utunes::handle_get_playlists_command(string rest_of_command) {
