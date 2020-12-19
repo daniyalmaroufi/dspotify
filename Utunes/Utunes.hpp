@@ -22,9 +22,11 @@ class Utunes {
     void handle_get_commands(string rest_of_command);
     void handle_delete_commands(string rest_of_command);
     void handle_signup_command(string rest_of_command);
+    void signup_user(string username, string email, string password);
 
    private:
     vector<Song*> songs;
+    vector<User*> users;
 };
 
 #endif

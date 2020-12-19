@@ -45,9 +45,14 @@ void Utunes::handle_signup_command(string rest_of_command) {
     commandSS >> username;
     commandSS >> temp_value;
     commandSS >> password;
-    cout<<username<<endl;
-    cout<<email<<endl;
-    cout<<password<<endl;
+    signup_user(username, email, password);
+}
+
+void Utunes::signup_user(string username, string email, string password) {
+    for (auto user : users)
+        if (user->is_username(username) || user->is_email(email))
+            throw BadRequest();
+    users.push_back(new User(username, email, password));
 }
 
 void Utunes::handle_get_commands(string rest_of_command) {
