@@ -38,6 +38,9 @@ class Utunes {
     void handle_delete_likes_command(string rest_of_command);
     void handle_create_playlist_command(string rest_of_command);
     void create_playlist(string name, string privacy);
+    void handle_get_playlists_command(string rest_of_command);
+    bool show_all_playlists_of_user(string ownername);
+    bool show_public_playlists_of_user(string ownername);
 
    private:
     vector<Song*> songs;

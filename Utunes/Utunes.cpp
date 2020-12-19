@@ -151,9 +151,45 @@ void Utunes::handle_get_commands(string rest_of_command) {
         handle_get_songs_command(rest_of_command);
     } else if (command == "likes") {
         handle_get_likes_command();
+    } else if (command == "playlists") {
+        handle_get_playlists_command(rest_of_command);
     } else {
         throw BadRequest();
     }
+}
+
+void Utunes::handle_get_playlists_command(string rest_of_command) {
+    stringstream commandSS(rest_of_command);
+    string ownername, temp_value;
+    commandSS >> temp_value;
+    commandSS >> temp_value;
+    commandSS >> ownername;
+    bool was_empty;
+    if (loggedin_user->is_username(ownername))
+        was_empty = show_all_playlists_of_user(ownername);
+    else
+        was_empty = show_public_playlists_of_user(ownername);
+    if (was_empty) throw Empty();
+}
+
+bool Utunes::show_all_playlists_of_user(string ownername) {
+    bool was_empty = true;
+    for (auto playlist : playlists)
+        if (playlist->is_owner(ownername)) {
+            playlist->print_short_info();
+            was_empty = false;
+        }
+    return was_empty;
+}
+
+bool Utunes::show_public_playlists_of_user(string ownername) {
+    bool was_empty = true;
+    for (auto playlist : playlists)
+        if (playlist->is_owner(ownername) && playlist->is_public()) {
+            playlist->print_short_info();
+            was_empty = false;
+        }
+    return was_empty;
 }
 
 void Utunes::handle_get_likes_command() { loggedin_user->show_likes(); }
