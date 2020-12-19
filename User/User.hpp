@@ -9,6 +9,7 @@ class User {
     User(){};
     bool is_username(std::string username_);
     bool is_email(std::string email_);
+    bool is_password(std::string password_);
 
    private:
     std::string username;
