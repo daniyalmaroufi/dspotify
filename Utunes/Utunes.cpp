@@ -56,17 +56,20 @@ void Utunes::handle_add_song_to_playlist_command(string rest_of_command) {
     commandSS >> playlist_id;
     commandSS >> temp_value;
     commandSS >> song_id;
+    add_song_to_playlist(playlist_id, song_id);
+    OK();
+}
+
+void Utunes::add_song_to_playlist(int playlist_id, int song_id) {
     if (!playlists[playlist_id]->is_owner(loggedin_user->get_username()))
         throw PermissionDenied();
     Song* the_song = NULL;
     for (auto song : songs)
-        if (song->is_id(song_id)) {
-            the_song = song;
-        }
+        if (song->is_id(song_id)) the_song = song;
+
     if (!the_song) throw NotFound();
 
     playlists[playlist_id - 1]->add_song(the_song);
-    OK();
 }
 
 void Utunes::handle_create_playlist_command(string rest_of_command) {

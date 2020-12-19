@@ -44,7 +44,7 @@ class Utunes {
     bool show_all_playlists_of_user(string ownername);
     bool show_public_playlists_of_user(string ownername);
     void handle_add_song_to_playlist_command(string rest_of_command);
-
+    void add_song_to_playlist(int playlist_id, int song_id);
 
     vector<Song*> songs;
     vector<User*> users;
