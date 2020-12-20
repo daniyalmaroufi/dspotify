@@ -30,6 +30,7 @@ class Song {
     void removed_to_playlist();
     void add_comment(int time, std::string username, std::string text);
     void show_comments();
+    bool is_year_between(int min_year, int max_year);
 
    private:
     int id;

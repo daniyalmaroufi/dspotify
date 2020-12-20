@@ -30,3 +30,6 @@ GET users
 POST comments ? song_id 2 time 12 comment likelike;)like
 POST comments ? song_id 2 time 14 comment likelike;)like
 GET comments ? song_id 2
+POST filters ? artist Ed Sheeran
+POST filters ? min_year 2015 max_year 2020
+GET songs

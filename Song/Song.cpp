@@ -74,3 +74,7 @@ void Song::show_comments() {
         std::cout << the_comment.time << " " << the_comment.username << ": "
                   << the_comment.text << std::endl;
 }
+
+bool Song::is_year_between(int min_year, int max_year) {
+    return release_year >= min_year && release_year <= max_year;
+}

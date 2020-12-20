@@ -1,6 +1,10 @@
 #include "./Utunes.hpp"
 
-Utunes::Utunes() { loggedin_user = NULL; }
+Utunes::Utunes() {
+    loggedin_user = NULL;
+    filters["artist"] = new ArtistFilter();
+    filters["year"] = new YearFilter();
+}
 
 void Utunes::handle_input() {
     string command;
@@ -44,6 +48,26 @@ void Utunes::handle_post_commands(string rest_of_command) {
         handle_add_song_to_playlist_command(rest_of_command);
     } else if (command == "comments") {
         handle_add_comment_command(rest_of_command);
+    } else if (command == "filters") {
+        handle_set_filter_command(rest_of_command);
+    } else {
+        throw BadRequest();
+    }
+}
+
+void Utunes::handle_set_filter_command(string rest_of_command) {
+    needs_login();
+    stringstream commandSS(rest_of_command);
+    string command, temp_value;
+    commandSS >> temp_value;
+    commandSS >> command;
+    getline(commandSS, rest_of_command);
+    if (command == "artist") {
+        filters["artist"]->set(rest_of_command);
+        OK();
+    } else if (command == "min_year") {
+        filters["year"]->set(rest_of_command);
+        OK();
     } else {
         throw BadRequest();
     }
@@ -143,7 +167,10 @@ void Utunes::needs_login() {
     if (loggedin_user == NULL) throw PermissionDenied();
 }
 
-void Utunes::logout_user() { loggedin_user = NULL; }
+void Utunes::logout_user() {
+    loggedin_user = NULL;
+    for (auto filter : filters) filter.second->reset();
+}
 
 void Utunes::handle_login_command(string rest_of_command) {
     stringstream commandSS(rest_of_command);
@@ -304,6 +331,13 @@ bool Utunes::show_public_playlists_of_user(string ownername) {
 
 void Utunes::handle_get_likes_command() { loggedin_user->show_likes(); }
 
+vector<Song*> Utunes::get_filtered_songs() {
+    vector<Song*> filtered_songs = songs;
+    for (auto filter : filters)
+        filtered_songs = filter.second->apply_on(filtered_songs);
+    return filtered_songs;
+}
+
 void Utunes::handle_get_songs_command(string rest_of_command) {
     stringstream commandSS(rest_of_command);
     string command;
@@ -312,9 +346,10 @@ void Utunes::handle_get_songs_command(string rest_of_command) {
         getline(commandSS, rest_of_command);
         handle_get_song_command(rest_of_command);
     } else if (command == "") {
-        if (songs.size() == 0) throw Empty();
-        vector<Song*> sorted_songs = sort_songs(songs);
-        for (auto song : sorted_songs) song->print_short_info();
+        vector<Song*> filtered_songs = get_filtered_songs();
+        if (filtered_songs.size() == 0) throw Empty();
+        filtered_songs = sort_songs(filtered_songs);
+        for (auto song : filtered_songs) song->print_short_info();
     }
 }
 
