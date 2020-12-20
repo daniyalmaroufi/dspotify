@@ -13,9 +13,9 @@ CPP=$(CPP_EXEC) $(CPP_STD) $(CPP_FLAGS)
 all: utunes.out
 
 utunes.out: obj/main.o obj/utunes.o obj/song.o obj/user.o obj/functions.o obj/playlist.o\
- obj/artistfilter.o obj/yearfilter.o
+ obj/artistfilter.o obj/yearfilter.o obj/likefilter.o
 	$(CPP) obj/main.o obj/utunes.o obj/song.o obj/user.o obj/functions.o obj/playlist.o\
- obj/artistfilter.o obj/yearfilter.o -o utunes.out
+ obj/artistfilter.o obj/yearfilter.o obj/likefilter.o -o utunes.out
 
 obj/main.o: main/main.cpp
 	$(CPP) -c main/main.cpp -o obj/main.o
@@ -37,6 +37,9 @@ obj/artistfilter.o: $(FILTERS_DIR)ArtistFilter.cpp $(FILTERS_DIR)ArtistFilter.hp
 
 obj/yearfilter.o: $(FILTERS_DIR)YearFilter.cpp $(FILTERS_DIR)YearFilter.hpp
 	$(CPP) -c $(FILTERS_DIR)YearFilter.cpp -o obj/yearfilter.o
+
+obj/likefilter.o: $(FILTERS_DIR)LikeFilter.cpp $(FILTERS_DIR)LikeFilter.hpp
+	$(CPP) -c $(FILTERS_DIR)LikeFilter.cpp -o obj/likefilter.o
 
 obj/functions.o: main/functions.hpp main/functions.cpp
 	$(CPP) -c main/functions.cpp -o obj/functions.o

@@ -78,3 +78,7 @@ void Song::show_comments() {
 bool Song::is_year_between(int min_year, int max_year) {
     return release_year >= min_year && release_year <= max_year;
 }
+
+bool Song::is_like_between(int min_like, int max_like) {
+    return num_of_likes >= min_like && num_of_likes <= max_like;
+}

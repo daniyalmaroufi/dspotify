@@ -4,6 +4,7 @@ Utunes::Utunes() {
     loggedin_user = NULL;
     filters["artist"] = new ArtistFilter();
     filters["year"] = new YearFilter();
+    filters["like"] = new LikeFilter();
 }
 
 void Utunes::handle_input() {
@@ -67,6 +68,9 @@ void Utunes::handle_set_filter_command(string rest_of_command) {
         OK();
     } else if (command == "min_year") {
         filters["year"]->set(rest_of_command);
+        OK();
+    } else if (command == "min_like") {
+        filters["like"]->set(rest_of_command);
         OK();
     } else {
         throw BadRequest();

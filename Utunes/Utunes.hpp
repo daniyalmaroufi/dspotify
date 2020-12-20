@@ -10,6 +10,7 @@
 
 #include "../Filters/ArtistFilter.hpp"
 #include "../Filters/Filter.hpp"
+#include "../Filters/LikeFilter.hpp"
 #include "../Filters/YearFilter.hpp"
 #include "../Playlist/Playlist.hpp"
 #include "../Song/Song.hpp"

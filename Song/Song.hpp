@@ -31,6 +31,7 @@ class Song {
     void add_comment(int time, std::string username, std::string text);
     void show_comments();
     bool is_year_between(int min_year, int max_year);
+    bool is_like_between(int min_like, int max_like);
 
    private:
     int id;
