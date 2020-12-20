@@ -172,8 +172,8 @@ void Utunes::needs_login() {
 }
 
 void Utunes::logout_user() {
+    reset_filters();
     loggedin_user = NULL;
-    for (auto filter : filters) filter.second->reset();
 }
 
 void Utunes::handle_login_command(string rest_of_command) {
@@ -381,9 +381,16 @@ void Utunes::handle_delete_commands(string rest_of_command) {
         handle_delete_likes_command(rest_of_command);
     } else if (command == "playlists_songs") {
         handle_remove_song_from_list_command(rest_of_command);
+    } else if (command == "filters") {
+        reset_filters();
+        OK();
     } else {
         throw BadRequest();
     }
+}
+
+void Utunes::reset_filters() {
+    for (auto filter : filters) filter.second->reset();
 }
 
 void Utunes::handle_remove_song_from_list_command(string rest_of_command) {

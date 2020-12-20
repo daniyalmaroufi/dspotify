@@ -56,6 +56,7 @@ class Utunes {
     void handle_get_comments_command(string rest_of_command);
     void handle_set_filter_command(string rest_of_command);
     vector<Song*> get_filtered_songs();
+    void reset_filters();
 
     vector<Song*> songs;
     vector<User*> users;

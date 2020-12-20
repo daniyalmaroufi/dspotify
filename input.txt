@@ -36,3 +36,5 @@ POST filters ? min_like 1 max_like 1
 GET songs
 POST likes ? id 1
 GET songs
+DELETE filters
+GET songs
