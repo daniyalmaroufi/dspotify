@@ -360,7 +360,7 @@ void Utunes::handle_get_songs_command(string rest_of_command) {
     if (command == "?") {
         getline(commandSS, rest_of_command);
         handle_get_song_command(rest_of_command);
-    } else if (command == "") {
+    } else {
         vector<Song*> filtered_songs = get_filtered_songs();
         if (filtered_songs.size() == 0) throw Empty();
         filtered_songs = sort_songs(filtered_songs);
