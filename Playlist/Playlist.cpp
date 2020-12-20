@@ -29,6 +29,7 @@ void Playlist::show_songs() {
 void Playlist::remove_song(int song_id) {
     for (int i = 0; i < songs.size(); i++)
         if (songs[i]->is_id(song_id)) {
+            songs[i]->removed_to_playlist();
             songs.erase(songs.begin() + i);
             return;
         }

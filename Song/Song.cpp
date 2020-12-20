@@ -36,6 +36,8 @@ void Song::like() { num_of_likes += 1; }
 
 void Song::added_to_playlist() { num_of_playlists += 1; }
 
+void Song::removed_to_playlist() { num_of_playlists -= 1; }
+
 void Song::add_comment(int time, std::string username, std::string text) {
     comment new_comment;
     new_comment.time = time;
