@@ -1,9 +1,12 @@
 #ifndef __SONG__
 #define __SONG__
 
+#include <algorithm>
 #include <iostream>
 #include <string>
 #include <vector>
+
+#include "../main/Exceptions.hpp"
 
 struct comment{
     int time;
@@ -25,6 +28,7 @@ class Song {
     void added_to_playlist();
     void removed_to_playlist();
     void add_comment(int time, std::string username, std::string text);
+    void show_comments();
 
    private:
     int id;

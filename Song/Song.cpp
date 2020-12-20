@@ -45,3 +45,30 @@ void Song::add_comment(int time, std::string username, std::string text) {
     new_comment.text = text;
     comments.push_back(new_comment);
 }
+
+bool compare_comments_by_username(const comment& first, const comment& second) {
+    return first.username < second.username;
+}
+
+bool compare_comments_by_time(const comment& first, const comment& second) {
+    return first.time < second.time;
+}
+
+std::vector<comment> sort_comments_by_username(std::vector<comment> comments) {
+    sort(comments.begin(), comments.end(), compare_comments_by_username);
+    return comments;
+}
+
+std::vector<comment> sort_comments_by_time(std::vector<comment> comments) {
+    sort(comments.begin(), comments.end(), compare_comments_by_time);
+    return comments;
+}
+
+void Song::show_comments() {
+    if (comments.size() == 0) throw Empty();
+    comments = sort_comments_by_username(comments);
+    comments = sort_comments_by_time(comments);
+    for (auto the_comment : comments)
+        std::cout << the_comment.time << " " << the_comment.username << ": "
+                  << the_comment.text << std::endl;
+}

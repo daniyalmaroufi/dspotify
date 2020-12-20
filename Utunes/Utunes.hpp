@@ -49,6 +49,7 @@ class Utunes {
     void handle_remove_song_from_list_command(string rest_of_command);
     void handle_get_users_command(string rest_of_command);
     void handle_add_comment_command(string rest_of_command);
+    void handle_get_comments_command(string rest_of_command);
 
     vector<Song*> songs;
     vector<User*> users;

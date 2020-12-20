@@ -210,9 +210,27 @@ void Utunes::handle_get_commands(string rest_of_command) {
         handle_get_playlist_songs_command(rest_of_command);
     } else if (command == "users") {
         handle_get_users_command(rest_of_command);
+    } else if (command == "comments") {
+        handle_get_comments_command(rest_of_command);
     } else {
         throw BadRequest();
     }
+}
+
+void Utunes::handle_get_comments_command(string rest_of_command) {
+    stringstream commandSS(rest_of_command);
+    int song_id;
+    string temp_value;
+    commandSS >> temp_value;
+    commandSS >> temp_value;
+    commandSS >> song_id;
+
+    for (auto song : songs)
+        if (song->is_id(song_id)) {
+            song->show_comments();
+            return;
+        }
+    throw NotFound();
 }
 
 bool compare_users_by_name(User* first, User* second) {
