@@ -23,6 +23,7 @@ void Playlist::add_song(Song* the_song) {
 
 void Playlist::show_songs() {
     if (songs.size() == 0) throw Empty();
+    songs = sort_songs(songs);
     for (auto song : songs) song->print_short_info();
 }
 
