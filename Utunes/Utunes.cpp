@@ -7,6 +7,17 @@ Utunes::Utunes() {
     filters["like"] = new LikeFilter();
 }
 
+Utunes::~Utunes() {
+    for (auto song : songs) delete song;
+    songs.clear();
+    for (auto user : users) delete user;
+    users.clear();
+    for (auto playlist : playlists) delete playlist;
+    playlists.clear();
+    for (auto filter : filters) delete filter.second;
+    filters.clear();
+}
+
 void Utunes::handle_input() {
     string command;
     while (getline(cin, command)) {

@@ -22,6 +22,7 @@ using namespace std;
 class Utunes {
    public:
     Utunes();
+    ~Utunes();
     void read_songs(string file_path);
     void handle_input();
 
