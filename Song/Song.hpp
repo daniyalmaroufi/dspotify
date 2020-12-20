@@ -8,7 +8,7 @@
 
 #include "../main/Exceptions.hpp"
 
-struct comment{
+struct comment {
     int time;
     std::string username;
     std::string text;
@@ -23,6 +23,7 @@ class Song {
     void print_short_info();
     bool is_id(int id_);
     bool is_the_same(Song* second);
+    bool is_artist(std::string name);
     void print_full_info();
     void like();
     void added_to_playlist();

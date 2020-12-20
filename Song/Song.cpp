@@ -30,6 +30,8 @@ void Song::print_full_info() {
     std::cout << "#playlists: " << num_of_playlists << std::endl;
 }
 
+bool Song::is_artist(std::string name) { return artist == name; }
+
 bool Song::is_the_same(Song* second) { return id == second->id; }
 
 void Song::like() { num_of_likes += 1; }

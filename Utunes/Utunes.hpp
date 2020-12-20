@@ -3,16 +3,17 @@
 
 #include <fstream>
 #include <iostream>
+#include <map>
 #include <sstream>
 #include <string>
 #include <vector>
 
+#include "../Filters/Filter.hpp"
 #include "../Playlist/Playlist.hpp"
 #include "../Song/Song.hpp"
 #include "../User/User.hpp"
 #include "../main/Exceptions.hpp"
 #include "../main/functions.hpp"
-
 using namespace std;
 
 class Utunes {
@@ -55,6 +56,7 @@ class Utunes {
     vector<User*> users;
     User* loggedin_user;
     vector<Playlist*> playlists;
+    map<string, Filter*> filters;
 };
 
 #endif

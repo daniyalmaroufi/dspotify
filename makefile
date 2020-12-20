@@ -5,14 +5,15 @@ UTUNES_DIR=Utunes/
 SONG_DIR=Song/
 USER_DIR=User/
 PLAYLIST_DIR=Playlist/
+FILTERS_DIR=Filters/
 
 
 CPP=$(CPP_EXEC) $(CPP_STD) $(CPP_FLAGS)
 
 all: utunes.out
 
-utunes.out: obj/main.o obj/utunes.o obj/song.o obj/user.o obj/functions.o obj/playlist.o
-	$(CPP) obj/main.o obj/utunes.o obj/song.o obj/user.o obj/functions.o obj/playlist.o -o utunes.out
+utunes.out: obj/main.o obj/utunes.o obj/song.o obj/user.o obj/functions.o obj/playlist.o obj/artistfilter.o
+	$(CPP) obj/main.o obj/utunes.o obj/song.o obj/user.o obj/functions.o obj/playlist.o obj/artistfilter.o -o utunes.out
 
 obj/main.o: main/main.cpp
 	$(CPP) -c main/main.cpp -o obj/main.o
@@ -28,6 +29,9 @@ obj/user.o: $(USER_DIR)User.cpp $(USER_DIR)User.hpp
 
 obj/playlist.o: $(PLAYLIST_DIR)Playlist.cpp $(PLAYLIST_DIR)Playlist.hpp
 	$(CPP) -c $(PLAYLIST_DIR)Playlist.cpp -o obj/playlist.o
+
+obj/artistfilter.o: $(FILTERS_DIR)ArtistFilter.cpp $(FILTERS_DIR)ArtistFilter.hpp
+	$(CPP) -c $(FILTERS_DIR)ArtistFilter.cpp -o obj/artistfilter.o
 
 obj/functions.o: main/functions.hpp main/functions.cpp
 	$(CPP) -c main/functions.cpp -o obj/functions.o
