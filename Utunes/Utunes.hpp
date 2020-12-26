@@ -63,7 +63,8 @@ class Utunes {
     vector<Song*> get_filtered_songs();
     void reset_filters();
     Song* find_song(int id);
-    void create_matrix();
+    void create_likes_matrix();
+    void change_likes_matrix_cell(User* user, Song* song, int do_likes);
 
     vector<Song*> songs;
     vector<User*> users;

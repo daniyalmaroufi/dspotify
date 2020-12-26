@@ -167,7 +167,15 @@ void Utunes::handle_like_a_song_command(string rest_of_command) {
     if (!song) throw NotFound();
 
     loggedin_user->like_song(song);
+    change_likes_matrix_cell(loggedin_user, song, 1);
     OK();
+}
+
+void Utunes::change_likes_matrix_cell(User* user, Song* song, int do_likes) {
+    for (int i = 0; i < users.size(); i++)
+        if (users[i] == user)
+            for (int j = 0; j < songs.size(); j++)
+                if (songs[j] == song) likes_matrix[i][j] = do_likes;
 }
 
 Song* Utunes::find_song(int id) {
@@ -233,6 +241,8 @@ void Utunes::signup_user(string username, string email, string password) {
             throw BadRequest();
     User* new_user = new User(username, email, hash_text(password));
     users.push_back(new_user);
+    vector<int> new_user_likes(songs.size(), 0);
+    likes_matrix.push_back(new_user_likes);
     loggedin_user = new_user;
 }
 
@@ -432,6 +442,7 @@ void Utunes::handle_delete_likes_command(string rest_of_command) {
     commandSS >> temp_value;
     commandSS >> song_id;
     loggedin_user->remove_liked_song(stoi(song_id));
+    change_likes_matrix_cell(loggedin_user, find_song(stoi(song_id)), 0);
     OK();
 }
 
@@ -465,7 +476,7 @@ void Utunes::read_liked_songs(string file_path) {
     }
     CSVfile.close();
 
-    create_matrix();
+    create_likes_matrix();
 }
 
 void Utunes::import_user(string username, string email, string password,
@@ -481,7 +492,7 @@ void Utunes::import_user(string username, string email, string password,
     new_user->like_song(find_song(liked_song));
 }
 
-void Utunes::create_matrix() {
+void Utunes::create_likes_matrix() {
     for (int i = 0; i < users.size(); i++) {
         vector<int> user_likes;
         for (auto song : songs) user_likes.push_back(users[i]->do_likes(song));
