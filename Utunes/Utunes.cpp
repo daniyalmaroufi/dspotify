@@ -163,13 +163,18 @@ void Utunes::handle_like_a_song_command(string rest_of_command) {
     commandSS >> temp_value;
     commandSS >> song_id;
 
+    Song* song = find_song(stoi(song_id));
+    if (!song) throw NotFound();
+
+    loggedin_user->like_song(song);
+    OK();
+}
+
+Song* Utunes::find_song(int id) {
     for (auto song : songs)
-        if (song->is_id(stoi(song_id))) {
-            loggedin_user->like_song(song);
-            OK();
-            return;
-        }
-    throw NotFound();
+        if (song->is_id(id)) return song;
+
+    return NULL;
 }
 
 void Utunes::handle_logout_command() {
@@ -444,4 +449,29 @@ void Utunes::read_songs(string file_path) {
                                  stoi(record[3]), record[4]));
     }
     CSVfile.close();
+}
+
+void Utunes::read_liked_songs(string file_path) {
+    ifstream CSVfile;
+    CSVfile.open(file_path);
+    string Line;
+    getline(CSVfile, Line);
+    while (getline(CSVfile, Line)) {
+        vector<string> record;
+        string cell_value;
+        stringstream SStream(Line);
+        while (getline(SStream, cell_value, ',')) record.push_back(cell_value);
+        import_user(record[0], record[1], record[2], stoi(record[3]));
+    }
+    CSVfile.close();
+}
+
+void Utunes::import_user(string username, string email, string password,
+                         int liked_song) {
+    for (auto user : users)
+        if (user->is_username(username)) user->like_song(find_song(liked_song));
+
+    User* new_user = new User(username, email, hash_text(password));
+    users.push_back(new_user);
+    new_user->like_song(find_song(liked_song));
 }

@@ -17,6 +17,7 @@
 #include "../User/User.hpp"
 #include "../main/Exceptions.hpp"
 #include "../main/functions.hpp"
+
 using namespace std;
 
 class Utunes {
@@ -24,9 +25,12 @@ class Utunes {
     Utunes();
     ~Utunes();
     void read_songs(string file_path);
+    void read_liked_songs(string file_path);
     void handle_input();
 
    private:
+    void import_user(string username, string email, string password,
+                     int liked_song);
     void handle_post_commands(string rest_of_command);
     void handle_get_commands(string rest_of_command);
     void handle_delete_commands(string rest_of_command);
@@ -58,6 +62,7 @@ class Utunes {
     void handle_set_filter_command(string rest_of_command);
     vector<Song*> get_filtered_songs();
     void reset_filters();
+    Song* find_song(int id);
 
     vector<Song*> songs;
     vector<User*> users;
