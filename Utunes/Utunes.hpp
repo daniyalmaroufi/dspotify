@@ -63,12 +63,14 @@ class Utunes {
     vector<Song*> get_filtered_songs();
     void reset_filters();
     Song* find_song(int id);
+    void create_matrix();
 
     vector<Song*> songs;
     vector<User*> users;
     User* loggedin_user;
     vector<Playlist*> playlists;
     map<string, Filter*> filters;
+    vector<vector<int>> likes_matrix;
 };
 
 #endif

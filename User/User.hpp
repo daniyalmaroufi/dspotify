@@ -20,6 +20,7 @@ class User {
     void remove_liked_song(int song_id);
     std::string get_username();
     bool compare_by_name_with(User* second);
+    bool do_likes(Song* song);
 
    private:
     std::string username;

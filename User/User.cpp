@@ -19,6 +19,12 @@ void User::like_song(Song* song) {
     liked_songs.push_back(song);
 }
 
+bool User::do_likes(Song* song) {
+    for (auto liked_song : liked_songs)
+        if (liked_song == song) return true;
+    return false;
+}
+
 void User::show_likes() {
     if (liked_songs.size() == 0) throw Empty();
     std::vector<Song*> sorted_songs = sort_songs(liked_songs);

@@ -464,14 +464,32 @@ void Utunes::read_liked_songs(string file_path) {
         import_user(record[0], record[1], record[2], stoi(record[3]));
     }
     CSVfile.close();
+
+    create_matrix();
 }
 
 void Utunes::import_user(string username, string email, string password,
                          int liked_song) {
     for (auto user : users)
-        if (user->is_username(username)) user->like_song(find_song(liked_song));
+        if (user->is_username(username)) {
+            user->like_song(find_song(liked_song));
+            return;
+        }
 
     User* new_user = new User(username, email, hash_text(password));
     users.push_back(new_user);
     new_user->like_song(find_song(liked_song));
+}
+
+void Utunes::create_matrix() {
+    for (int i = 0; i < users.size(); i++) {
+        vector<int> user_likes;
+        for (auto song : songs) user_likes.push_back(users[i]->do_likes(song));
+        likes_matrix.push_back(user_likes);
+    }
+
+    for (auto userlike : likes_matrix) {
+        for (auto like : userlike) cout << like << " ";
+        cout << endl;
+    }
 }
