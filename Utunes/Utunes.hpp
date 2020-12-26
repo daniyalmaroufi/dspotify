@@ -65,6 +65,8 @@ class Utunes {
     Song* find_song(int id);
     void create_likes_matrix();
     void change_likes_matrix_cell(User* user, Song* song, int do_likes);
+    void calculate_similarity_matrix();
+    double calculate_similarity_of(User* first_user, User* second_user);
 
     vector<Song*> songs;
     vector<User*> users;
@@ -72,6 +74,7 @@ class Utunes {
     vector<Playlist*> playlists;
     map<string, Filter*> filters;
     vector<vector<int>> likes_matrix;
+    vector<vector<double>> similarity_matrix;
 };
 
 #endif

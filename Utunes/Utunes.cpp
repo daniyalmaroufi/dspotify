@@ -504,3 +504,21 @@ void Utunes::create_likes_matrix() {
         cout << endl;
     }
 }
+
+void Utunes::calculate_similarity_matrix() {
+    similarity_matrix.clear();
+    for (int i = 0; i < users.size(); i++) {
+        vector<double> row;
+        for (int j = 0; j < users.size(); j++)
+            row.push_back(calculate_similarity_of(users[i], users[j]));
+        similarity_matrix.push_back(row);
+    }
+}
+
+double Utunes::calculate_similarity_of(User* first_user, User* second_user) {
+    int common_likes = 0;
+    for (auto song : songs)
+        if (first_user->do_likes(song) && second_user->do_likes(song))
+            common_likes += 1;
+    return (common_likes / songs.size());
+}
