@@ -67,6 +67,7 @@ class Utunes {
     void change_likes_matrix_cell(User* user, Song* song, int do_likes);
     void calculate_similarity_matrix();
     double calculate_similarity_of(User* first_user, User* second_user);
+    double calculate_confidence(User* user, Song* song);
 
     vector<Song*> songs;
     vector<User*> users;

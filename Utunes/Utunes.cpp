@@ -522,3 +522,15 @@ double Utunes::calculate_similarity_of(User* first_user, User* second_user) {
             common_likes += 1;
     return (common_likes / songs.size());
 }
+
+double Utunes::calculate_confidence(User* user, Song* song) {
+    double nominator = 0;
+    int user_id;
+    for (int i = 0; i < users.size(); i++)
+        if (users[i] == user) user_id = i;
+
+    for (int i = 0; i < users.size(); i++)
+        nominator +=
+            users[user_id]->do_likes(song) * similarity_matrix[i][user_id];
+    return (nominator / (users.size() - 1));
+}
