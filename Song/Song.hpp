@@ -32,6 +32,7 @@ class Song {
     void show_comments();
     bool is_year_between(int min_year, int max_year);
     bool is_like_between(int min_like, int max_like);
+    void print_as_recommended(double confidence);
 
    private:
     int id;

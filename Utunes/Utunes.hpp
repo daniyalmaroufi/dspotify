@@ -72,6 +72,7 @@ class Utunes {
     void handle_get_similar_users_command(string rest_of_command);
     int find_user_id(User* user);
     vector<pair<string, double>> get_similar_users_of(User* user);
+    void handle_get_recommended_songs_command(string rest_of_command);
 
     vector<Song*> songs;
     vector<User*> users;

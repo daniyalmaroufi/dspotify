@@ -82,3 +82,8 @@ bool Song::is_year_between(int min_year, int max_year) {
 bool Song::is_like_between(int min_like, int max_like) {
     return num_of_likes >= min_like && num_of_likes <= max_like;
 }
+
+void Song::print_as_recommended(double confidence) {
+    std::cout << id << " " << confidence << "% " << title << " " << artist
+              << " " << release_year << std::endl;
+}

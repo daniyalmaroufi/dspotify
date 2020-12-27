@@ -271,8 +271,52 @@ void Utunes::handle_get_commands(string rest_of_command) {
         handle_get_comments_command(rest_of_command);
     } else if (command == "similar_users") {
         handle_get_similar_users_command(rest_of_command);
+    } else if (command == "recommended") {
+        handle_get_recommended_songs_command(rest_of_command);
     } else {
         throw BadRequest();
+    }
+}
+
+bool compare_recommended_song_by_id(pair<Song*, double> a,
+                                    pair<Song*, double> b) {
+    return a.first->compare_by_id_with(b.first);
+}
+
+bool compare_recommended_song_by_confidence(pair<Song*, double> a,
+                                            pair<Song*, double> b) {
+    return a.second > b.second;
+}
+
+void Utunes::handle_get_recommended_songs_command(string rest_of_command) {
+    stringstream commandSS(rest_of_command);
+    int count;
+    string temp_value;
+    commandSS >> temp_value;
+    commandSS >> temp_value;
+    commandSS >> count;
+
+    calculate_similarity_matrix();
+    vector<pair<Song*, double>> recommended_songs;
+    for (auto song : songs) {
+        if (!loggedin_user->do_likes(song)) {
+            recommended_songs.push_back(make_pair(
+                song, calculate_confidence(loggedin_user, song) * 100));
+        }
+    }
+
+    sort(recommended_songs.begin(), recommended_songs.end(),
+         compare_recommended_song_by_id);
+    sort(recommended_songs.begin(), recommended_songs.end(),
+         compare_recommended_song_by_confidence);
+
+    auto it = recommended_songs.begin();
+    int counter = 0;
+    cout.precision(2);
+    while (it != recommended_songs.end() && counter < count) {
+        it->first->print_as_recommended(it->second);
+        it++;
+        counter++;
     }
 }
 
@@ -576,7 +620,6 @@ double Utunes::calculate_confidence(User* user, Song* song) {
     double nominator = 0;
     int user_id = find_user_id(user);
     for (int i = 0; i < users.size(); i++)
-        nominator +=
-            users[user_id]->do_likes(song) * similarity_matrix[i][user_id];
+        nominator += users[i]->do_likes(song) * similarity_matrix[user_id][i];
     return (nominator / (users.size() - 1));
 }
