@@ -568,7 +568,6 @@ void Utunes::read_liked_songs(string file_path) {
         import_user(record[0], record[1], record[2], stoi(record[3]));
     }
     CSVfile.close();
-
     create_likes_matrix();
 }
 
