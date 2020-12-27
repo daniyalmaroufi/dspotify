@@ -6,6 +6,7 @@
 #include <map>
 #include <sstream>
 #include <string>
+#include <utility>
 #include <vector>
 
 #include "../Filters/ArtistFilter.hpp"
@@ -68,6 +69,9 @@ class Utunes {
     void calculate_similarity_matrix();
     double calculate_similarity_of(User* first_user, User* second_user);
     double calculate_confidence(User* user, Song* song);
+    void handle_get_similar_users_command(string rest_of_command);
+    int find_user_id(User* user);
+    vector<pair<string, double>> get_similar_users_of(User* user);
 
     vector<Song*> songs;
     vector<User*> users;

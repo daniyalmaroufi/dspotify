@@ -269,9 +269,58 @@ void Utunes::handle_get_commands(string rest_of_command) {
         handle_get_users_command(rest_of_command);
     } else if (command == "comments") {
         handle_get_comments_command(rest_of_command);
+    } else if (command == "similar_users") {
+        handle_get_similar_users_command(rest_of_command);
     } else {
         throw BadRequest();
     }
+}
+
+bool compare_similar_user_by_username(pair<string, double> a,
+                                      pair<string, double> b) {
+    return a.first < b.first;
+}
+
+bool compare_similar_user_by_similarity(pair<string, double> a,
+                                        pair<string, double> b) {
+    return a.second > b.second;
+}
+
+void Utunes::handle_get_similar_users_command(string rest_of_command) {
+    stringstream commandSS(rest_of_command);
+    int count;
+    string temp_value;
+    commandSS >> temp_value;
+    commandSS >> temp_value;
+    commandSS >> count;
+
+    vector<pair<string, double>> similar_users =
+        get_similar_users_of(loggedin_user);
+
+    sort(similar_users.begin(), similar_users.end(),
+         compare_similar_user_by_username);
+    sort(similar_users.begin(), similar_users.end(),
+         compare_similar_user_by_similarity);
+
+    auto it = similar_users.begin();
+    int counter = 0;
+    cout.precision(2);
+    while (it != similar_users.end() && counter < count) {
+        cout << fixed << it->second << "% " << it->first << endl;
+        it++;
+        counter++;
+    }
+}
+
+vector<pair<string, double>> Utunes::get_similar_users_of(User* user) {
+    int user_id = find_user_id(user);
+    calculate_similarity_matrix();
+    vector<pair<string, double>> similar_users;
+    for (int i = 0; i < users.size(); i++)
+        if (i != user_id)
+            similar_users.push_back(make_pair(
+                users[i]->get_username(), similarity_matrix[user_id][i] * 100));
+    return similar_users;
 }
 
 void Utunes::handle_get_comments_command(string rest_of_command) {
@@ -498,11 +547,6 @@ void Utunes::create_likes_matrix() {
         for (auto song : songs) user_likes.push_back(users[i]->do_likes(song));
         likes_matrix.push_back(user_likes);
     }
-
-    for (auto userlike : likes_matrix) {
-        for (auto like : userlike) cout << like << " ";
-        cout << endl;
-    }
 }
 
 void Utunes::calculate_similarity_matrix() {
@@ -516,19 +560,21 @@ void Utunes::calculate_similarity_matrix() {
 }
 
 double Utunes::calculate_similarity_of(User* first_user, User* second_user) {
-    int common_likes = 0;
+    double common_likes = 0;
     for (auto song : songs)
         if (first_user->do_likes(song) && second_user->do_likes(song))
             common_likes += 1;
-    return (common_likes / songs.size());
+    return common_likes / songs.size();
+}
+
+int Utunes::find_user_id(User* user) {
+    for (int i = 0; i < users.size(); i++)
+        if (users[i] == user) return i;
 }
 
 double Utunes::calculate_confidence(User* user, Song* song) {
     double nominator = 0;
-    int user_id;
-    for (int i = 0; i < users.size(); i++)
-        if (users[i] == user) user_id = i;
-
+    int user_id = find_user_id(user);
     for (int i = 0; i < users.size(); i++)
         nominator +=
             users[user_id]->do_likes(song) * similarity_matrix[i][user_id];
