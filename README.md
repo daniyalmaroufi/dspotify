@@ -6,7 +6,7 @@ A simple cpp music platform like Spotify
 
 # Phase 1
 
-In the phase 1, Users can work with the app using command line (CLI). The app reads the songs list from a csv file. Users after login/sign up can access the songs, filter them, and like the songs.
+In the phase 1, Users can work with the app using command line (CLI). The app reads the songs list from a csv file. Users after login/sign up can access the songs, filter them, and like the songs. The persian description of the phase 1 is in the [Phase1_Description.pdf](./Phase1_Description.pdf) file.
 
 ## CLI Commands
 
